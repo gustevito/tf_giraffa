@@ -1,0 +1,17 @@
+#BlueJ class context
+comment0.target=CadastroLeitor
+comment1.params=
+comment1.target=CadastroLeitor()
+comment2.params=leitor
+comment2.target=boolean\ adicionaLeitor(Leitor)
+comment3.params=
+comment3.target=void\ mostraLeitores()
+comment4.params=
+comment4.target=void\ showReaders()
+comment5.params=matricula
+comment5.target=boolean\ verificaMatricula(int)
+comment6.params=nome
+comment6.target=Leitor\ buscaLeitorPeloNome(java.lang.String)
+comment7.params=nome
+comment7.target=boolean\ retiraLeitor(java.lang.String)
+numComments=8

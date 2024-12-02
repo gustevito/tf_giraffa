@@ -1,0 +1,25 @@
+#BlueJ class context
+comment0.target=Livro
+comment1.params=codigo\ nomeLivro\ exemplares
+comment1.target=Livro(int,\ java.lang.String,\ int)
+comment10.params=
+comment10.target=java.lang.String\ toString()
+comment11.params=
+comment11.target=java.lang.String\ toStringENG()
+comment2.params=
+comment2.target=int\ getCodigo()
+comment3.params=
+comment3.target=int\ getExemplares()
+comment4.params=
+comment4.target=java.lang.String\ getNomeLivro()
+comment5.params=codigo
+comment5.target=void\ setCodigo(int)
+comment6.params=exemplares
+comment6.target=void\ setExemplares(int)
+comment7.params=nomeLivro
+comment7.target=void\ setNomeLivro(java.lang.String)
+comment8.params=
+comment8.target=boolean\ retirada()
+comment9.params=
+comment9.target=void\ devolucao()
+numComments=12
