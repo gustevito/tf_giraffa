@@ -55,19 +55,26 @@ public class Application {
             break;
             case 2:
                 System.out.print('\u000C');
-                System.out.println("    _____");
-                System.out.println("   /    /|_ ___________________________________________");
-                System.out.println("  /    // /|                                          /|");
-                System.out.println(" (====|/ //   Welcome to the Public Library!         / |");
-                System.out.println("  (=====|/    Let's start your service:             / .|");
-                System.out.println(" (====|/                                           / /||");
-                System.out.println("/_________________________________________________/ / ||");
-                System.out.println("|  _____________________________________________  ||  ||");
-                System.out.println("| ||                                            | ||");
-                System.out.println("| ||                                            | ||");
-                System.out.println("| |                                             | |");
-                
-                
+                System.out.print(
+                "             ,----------------,              ,---------,\n" +
+                "        ,-----------------------,          ,\"        ,\"|\n" +
+                "      ,\"                      ,\"|        ,\"        ,\"  |      Boas vindas a nossa empresa LESS IS MORE!\n" +
+                "     +-----------------------+  |      ,\"        ,\"    |\n" +
+                "     |  .-----------------.  |  |     +---------+      |       Oferecemos a melhor solução para sua empresa quando\n" +
+                "     |  |                 |  |  |     | -==----'|      |       o assunto é eletrônicos!\n" +
+                "     |  |  LESS IS MORE!  |  |  |     |         |      |\n" +
+                "     |  |  Insira um nº:  |  |  |/----|`---=    |      |       Para começar, siga as instruções abaixo:\n" +
+                "     |  |  C:\\>_          |  |  |   ,/|==== ooo |      ;\n" +
+                "     |  |                 |  |  |  // |(((( [33]|    ,\"\n" +
+                "     |  `-----------------'  |,\" .;'| |((((     |  ,\"\n" +
+                "     +-----------------------+  ;;  | |         |,\"     \n" +
+                "        /_)______________(_/  //'   | +---------+\n" +
+                "   ___________________________/___  `,\n" +
+                "  /  oooooooooooooooo  .o.  oooo /,   \\,\"-----------\n" +
+                " / ==ooooooooooooooo==.o.  ooo= //   ,`\\--{)B     ,\"\n" +
+                "/_==__==========__==_ooo__ooo=_/'   /___________,\" \n" +
+                "`-----------------------------'\n"
+            );
                 options(teclado, equipamentos, clientes);
                 
             break;
@@ -180,7 +187,9 @@ public class Application {
                 
                     System.out.println("Deseja incluir seguro para este equipamento? (1 - Sim, 0 - Não): ");
                     int seguroInput = teclado.nextInt();
-                    teclado.nextLine(); 
+                    teclado.nextLine();
+                    
+            
                 
                     // Validar o input do seguro
                     if (seguroInput < 0 || seguroInput > 1) {
@@ -190,12 +199,28 @@ public class Application {
                     }
                     boolean seguro = (seguroInput == 1);
                 
+                    System.out.println("Por quantos dias você deseja alugar este equipamento?");
+                    int dias = teclado.nextInt();
+                    double valor = valorBase;
+                    if (dias > 7 || dias <= 15) {
+                        valor *= 0.95; // Desconto de 5%
+                    } else if (dias > 15 || dias <= 30) {
+                        valor *= 0.90; // Desconto de 10%
+                    } else if (dias != 7) {
+                        throw new IllegalArgumentException("Duração inválida. Escolha 7, 15 ou 30 dias.");
+                    }
+            
+                    // Acrescentar 2% caso o seguro esteja ativo
+                    if (seguro) {
+                        valor *= 1.02;
+                    }
+    
+                    
                     // Criação do novo equipamento
                     Equipamento novoEquipamento = new Equipamento(codigo, nomeEquipamento, quantidade, tipoInput, valorBase, seguro);
                     if (equipamentos.adicionaEquipamento(novoEquipamento)) {
                         System.out.println("Equipamento adicionado com sucesso!");
                         System.out.println(novoEquipamento);
-                        int valor = Equipamento.calculaValorEmprestimo(dias);
                         System.out.println("Valor acrescido com o seguro: R$" + valor);
                     } else {
                         System.out.println("ERRO" + 
