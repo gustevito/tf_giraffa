@@ -1,0 +1,17 @@
+#BlueJ class context
+comment0.target=CadastroCliente
+comment1.params=
+comment1.target=CadastroCliente()
+comment2.params=cliente
+comment2.target=boolean\ adicionaCliente(Cliente)
+comment3.params=
+comment3.target=void\ mostraClientes()
+comment4.params=
+comment4.target=void\ showClients()
+comment5.params=matricula
+comment5.target=boolean\ verificaMatricula(int)
+comment6.params=nome
+comment6.target=Cliente\ buscaClientePeloNome(java.lang.String)
+comment7.params=nome
+comment7.target=boolean\ retiraCliente(java.lang.String)
+numComments=8

@@ -1,16 +1,16 @@
-public class Leitor {
+public class Cliente {
     private int matricula;
     private String nome;
-    private String email;
+    private String empresa;
     private int quantidadeEmprestimos;
-    Livro livroRetirado;
+    Equipamento equipamentoRetirado;
 
-    public Leitor(int matricula, String nome, String email) {
+    public Cliente(int matricula, String nome, String empresa) {
         this.matricula = matricula;
         this.nome = nome;
-        this.email = email;
+        this.empresa = empresa;
         this.quantidadeEmprestimos = 0;
-        this.livroRetirado = null;
+        this.equipamentoRetirado = null;
     }
 
     // getters
@@ -20,14 +20,14 @@ public class Leitor {
     public String getNome() {
         return nome;
     }
-    public String getEmail(){
-        return email;
+    public String getEmpresa(){
+        return empresa;
     }
     public int getQuantidadeEmprestimos() {
         return quantidadeEmprestimos;
     }
-    public Livro getLivroRetirado() {
-        return livroRetirado;
+    public Equipamento getEquipamentoRetirado() {
+        return equipamentoRetirado;
     }
     
     // setters
@@ -37,30 +37,30 @@ public class Leitor {
     public void setNome(String nome) {
         this.nome = nome;
     }
-    public void setEmail(String email){
-        this.email = email;
+    public void setEmpresa(String empresa){
+        this.empresa = empresa;
     }
     public void setQuantidadeEmprestimos(int quantidadeEmprestimos) {
         this.quantidadeEmprestimos = quantidadeEmprestimos;
     }
-    public void setLivroRetirado(Livro livro) {
-        this.livroRetirado = livro;
+    public void setEquipamentoRetirado(Equipamento equipamento) {
+        this.equipamentoRetirado = equipamento;
     }
     
     
     // toString (portugues e ingles)
     public String toString(){
-        return "\nLEITOR " + 
+        return "\nCLIENTE " + 
         "\nNome: " + nome +
         "\nMatrícula: " + matricula +
-        "\nE-mail: " + email +
-        "\nLivro Retirado: " + (livroRetirado != null ? livroRetirado.getNomeLivro() : "Nenhum");
+        "\nEmpresa: " + empresa +
+        "\nEquipamento Retirado: " + (equipamentoRetirado != null ? equipamentoRetirado.getNomeEquipamento() : "Nenhum");
     }
     public String toStringENG(){
-        return "\nREADER " + 
+        return "\nCLIENT " + 
         "\nName: " + nome +
         "\nRegistration: " + matricula +
-        "\nE-mail: " + email +
-        "\nBook rented: " + (livroRetirado != null ? livroRetirado.getNomeLivro() : "None");
+        "\nCompany: " + empresa +
+        "\nEquipment Rented: " + (equipamentoRetirado != null ? equipamentoRetirado.getNomeEquipamento() : "None");
     }
 }

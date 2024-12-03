@@ -2,10 +2,10 @@
 comment0.target=Application
 comment1.params=args
 comment1.target=void\ main(java.lang.String[])
-comment2.params=teclado\ livros\ leitores
-comment2.target=void\ opcoes(java.util.Scanner,\ CadastroLivro,\ CadastroLeitor)
-comment3.params=teclado\ livros\ leitores
-comment3.target=void\ options(java.util.Scanner,\ CadastroLivro,\ CadastroLeitor)
+comment2.params=teclado\ equipamentos\ clientes
+comment2.target=void\ opcoes(java.util.Scanner,\ CadastroEquipamento,\ CadastroCliente)
+comment3.params=teclado\ equipamentos\ clientes
+comment3.target=void\ options(java.util.Scanner,\ CadastroEquipamento,\ CadastroCliente)
 comment4.params=
 comment4.target=void\ exibirMenu()
 comment5.params=
