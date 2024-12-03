@@ -6,7 +6,7 @@ public class Equipamento {
     private double valorBase; // Valor do empréstimo por 1 semana
     private boolean seguro;  // Indica se o equipamento possui seguro
 
-    public Equipamento(int codigo, String nomeEquipamento, int quantidade, int tipoInput, double valorBase, boolean seguro) {
+    public Equipamento(int codigo, String nomeEquipamento, int quantidade, int tipoInput, double valorBase) {
         this.codigo = codigo;
         this.nomeEquipamento = nomeEquipamento;
         this.quantidade = quantidade;
@@ -107,8 +107,7 @@ public class Equipamento {
             "\nCodigo: " + codigo +
             "\nQuantidade: " + quantidade +
             "\nTipo: " + tipo +
-            "\nValor Base: R$ " + String.format("%.2f", valorBase) +
-            "\nSeguro: " + (seguro ? "Sim" : "Não");
+            "\nValor Base: R$ " + String.format("%.2f", valorBase);
     }
     public String toStringENG() {
         return "\nEQUIPMENT" +
@@ -116,7 +115,6 @@ public class Equipamento {
             "\nCode: " + codigo +
             "\nQuantity: " + quantidade +
             "\nType: " + tipo +
-            "\nBase Value: $ " + String.format("%.2f", valorBase) +
-            "\nInsurance: " + (seguro ? "Yes" : "No");
+            "\nBase Value: $ " + String.format("%.2f", valorBase);
     }
 }

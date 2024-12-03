@@ -1,7 +1,7 @@
 #BlueJ class context
 comment0.target=Equipamento
-comment1.params=codigo\ nomeEquipamento\ quantidade\ tipoInput\ valorBase\ seguro
-comment1.target=Equipamento(int,\ java.lang.String,\ int,\ int,\ double,\ boolean)
+comment1.params=codigo\ nomeEquipamento\ quantidade\ tipoInput\ valorBase
+comment1.target=Equipamento(int,\ java.lang.String,\ int,\ int,\ double)
 comment10.params=nomeEquipamento
 comment10.target=void\ setNomeEquipamento(java.lang.String)
 comment11.params=tipoInput

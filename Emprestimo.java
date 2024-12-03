@@ -1,11 +1,19 @@
 import java.util.Scanner;
 import java.util.Random;
 
-public class Application {
+public class Emprestimo {
     public static void main(String[] args) {
         Scanner teclado = new Scanner(System.in);
         CadastroCliente clientes = new CadastroCliente();
         CadastroEquipamento equipamentos = new CadastroEquipamento();
+        // Equipamentos adicionados previamente:
+            equipamentos.adicionaEquipamento(new Equipamento(101, "Notebook Vaio", 5, 1, 200.0));
+            equipamentos.adicionaEquipamento(new Equipamento(102, "Notebook Dell", 4, 1, 180.0));
+            equipamentos.adicionaEquipamento(new Equipamento(201, "Impressora Epson", 3, 2, 100.0));
+            equipamentos.adicionaEquipamento(new Equipamento(202, "Impressora HP", 2, 2, 120.0));
+            equipamentos.adicionaEquipamento(new Equipamento(301, "Desktop Gamer | Ryzen 5", 6, 3, 250.0));
+            equipamentos.adicionaEquipamento(new Equipamento(302, "Desktop Gamer | Ryzen 7", 3, 3, 220.0));
+        
         
         System.out.println("Selecione o idioma de sua preferência:");
         System.out.println("(Select your preferred language:)");
@@ -58,12 +66,12 @@ public class Application {
                 System.out.print(
                 "             ,----------------,              ,---------,\n" +
                 "        ,-----------------------,          ,\"        ,\"|\n" +
-                "      ,\"                      ,\"|        ,\"        ,\"  |      Boas vindas a nossa empresa LESS IS MORE!\n" +
+                "      ,\"                      ,\"|        ,\"        ,\"  |      Welcome to LESS IS MORE!\n" +
                 "     +-----------------------+  |      ,\"        ,\"    |\n" +
-                "     |  .-----------------.  |  |     +---------+      |       Oferecemos a melhor solução para sua empresa quando\n" +
-                "     |  |                 |  |  |     | -==----'|      |       o assunto é eletrônicos!\n" +
+                "     |  .-----------------.  |  |     +---------+      |       We're here to offer you the very best when\n" +
+                "     |  |                 |  |  |     | -==----'|      |       it comes to electronics!\n" +
                 "     |  |  LESS IS MORE!  |  |  |     |         |      |\n" +
-                "     |  |  Insira um nº:  |  |  |/----|`---=    |      |       Para começar, siga as instruções abaixo:\n" +
+                "     |  | Insert a number:|  |  |/----|`---=    |      |       To start, follow the instructions below:\n" +
                 "     |  |  C:\\>_          |  |  |   ,/|==== ooo |      ;\n" +
                 "     |  |                 |  |  |  // |(((( [33]|    ,\"\n" +
                 "     |  `-----------------'  |,\" .;'| |((((     |  ,\"\n" +
@@ -181,49 +189,19 @@ public class Application {
                     int codigo = teclado.nextInt();
                     teclado.nextLine(); 
                 
-                    System.out.println("Informe o valor base para o empréstimo por 1 semana (em R$): ");
+                    System.out.println("Informe o valor base para o aluguel do equipamento:");
                     double valorBase = teclado.nextDouble();
                     teclado.nextLine(); 
-                
-                    System.out.println("Deseja incluir seguro para este equipamento? (1 - Sim, 0 - Não): ");
-                    int seguroInput = teclado.nextInt();
-                    teclado.nextLine();
-                    
-            
-                
-                    // Validar o input do seguro
-                    if (seguroInput < 0 || seguroInput > 1) {
-                        System.out.println("ERRO: Opção de seguro inválida. Escolha 1 (Sim) ou 0 (Não).");
-                        esperarEnter(teclado);
-                        break;
-                    }
-                    boolean seguro = (seguroInput == 1);
-                
-                    System.out.println("Por quantos dias você deseja alugar este equipamento?");
-                    int dias = teclado.nextInt();
-                    double valor = valorBase;
-                    if (dias > 7 || dias <= 15) {
-                        valor *= 0.95; // Desconto de 5%
-                    } else if (dias > 15 || dias <= 30) {
-                        valor *= 0.90; // Desconto de 10%
-                    } else if (dias != 7) {
-                        throw new IllegalArgumentException("Duração inválida. Escolha 7, 15 ou 30 dias.");
-                    }
-            
-                    // Acrescentar 2% caso o seguro esteja ativo
-                    if (seguro) {
-                        valor *= 1.02;
-                    }
     
                     
                     // Criação do novo equipamento
-                    Equipamento novoEquipamento = new Equipamento(codigo, nomeEquipamento, quantidade, tipoInput, valorBase, seguro);
+                    Equipamento novoEquipamento = new Equipamento(codigo, nomeEquipamento, quantidade, tipoInput, valorBase);
                     if (equipamentos.adicionaEquipamento(novoEquipamento)) {
-                        System.out.println("Equipamento adicionado com sucesso!");
+                        System.out.println("\nEquipamento adicionado com sucesso!");
                         System.out.println(novoEquipamento);
-                        System.out.println("Valor acrescido com o seguro: R$" + valor);
+                        
                     } else {
-                        System.out.println("ERRO" + 
+                        System.out.println("\nERRO" + 
                         "\nNão foi possível cadastrar o equipamento '" + nomeEquipamento + "'." +
                         "\nVerifique se você digitou corretamente e tente novamente!");
                     }
@@ -277,22 +255,76 @@ public class Application {
                 System.out.print('\u000C');
                 System.out.println("OPÇÃO ESCOLHIDA – Retirar equipamento");
                 
-                System.out.println ("\nInforme o nome do cliente que deseja retirar um equipamento: ");
+                System.out.println("\nInforme o nome do cliente que deseja retirar um equipamento: ");
                 nome = teclado.nextLine();
-                System.out.println ("Informe o nome do equipamento que o cliente deseja retirar: ");
-                nomeEquipamento = teclado.nextLine();
-                if (clientes.buscaClientePeloNome(nome).getEquipamentoRetirado() != null) {
-                    System.out.println ("O cliente já tem um equipamento em empréstimo com a empresa.\nCaso ele deseja retirar outro equipamento, deve devolver o outro antes.");
+                
+                
+                System.out.println("Informe o código do equipamento que o cliente deseja retirar: ");
+                System.out.println("\n • Estoque • ");
+                equipamentos.mostraEquipamentos();
+                
+                codigo = teclado.nextInt();
+            
+                // Buscar cliente e equipamento
+                Cliente cliente = clientes.buscaClientePeloNome(nome);
+                Equipamento equipamento = equipamentos.buscaEquipamentoPeloCodigo(codigo);
+            
+                if (cliente == null) {
+                    System.out.println("ERRO: Cliente não encontrado.");
+                } else if (equipamento == null) {
+                    System.out.println("ERRO: Equipamento não encontrado.");
+                } else if (cliente.getEquipamentoRetirado() != null) {
+                    System.out.println("O cliente já tem um equipamento em empréstimo com a empresa." +
+                                       "\nCaso deseje retirar outro equipamento, deve devolver o anterior.");
                 } else {
-                    clientes.buscaClientePeloNome(nome).setEquipamentoRetirado(equipamentos.buscaEquipamentoPeloNome(nomeEquipamento));
-                    if (equipamentos.buscaEquipamentoPeloNome(nomeEquipamento).retirada()) {
-                        System.out.println ("O equipamento foi retirado com sucesso!");
+                    System.out.println("Deseja incluir seguro para este equipamento? (1 - Sim, 0 - Não): ");
+                    int seguroInput = teclado.nextInt();
+                    if (seguroInput < 0 || seguroInput > 1) {
+                        System.out.println("ERRO: Opção de seguro inválida. Escolha 1 (Sim) ou 0 (Não).");
+                        esperarEnter(teclado);
+                        break;
+                    }
+                    boolean seguro = (seguroInput == 1);
+                    teclado.nextLine();
+            
+                    System.out.println("Por quantos dias você deseja alugar este equipamento?");
+                    int dias = teclado.nextInt();
+                    teclado.nextLine();
+            
+                    // Obter o valor base do equipamento
+                    valorBase = equipamento.getValorBase();
+            
+                    // Calcular o valor final
+                    double valor = valorBase;
+                    if (dias == 7) {
+                        valor *= 1.0; // Sem desconto
+                    } else if (dias > 7 || dias <= 15) {
+                        valor *= 0.95; // Desconto de 5%
+                    } else if (dias > 15 || dias <= 30) {
+                        valor *= 0.90; // Desconto de 10%
                     } else {
-                        System.out.println ("Não foi possível retirar o equipamento!" + "\nO equipamento não possui cópias disponíveis.");
+                        System.out.println("ERRO: Duração inválida. Escolha 7, 15 ou 30 dias.");
+                        esperarEnter(teclado);
+                        break;
+                    }
+                    if (seguro) {
+                        valor *= 1.02; // Acrescentar 2% pelo seguro
+                    }
+            
+                    System.out.println("Valor final: R$" + String.format("%.2f", valor));
+            
+                    // Registrar retirada
+                    cliente.setEquipamentoRetirado(equipamento);
+                    if (equipamento.retirada()) {
+                        System.out.println("O equipamento foi retirado com sucesso!");
+                    } else {
+                        System.out.println("Não foi possível retirar o equipamento!" +
+                                           "\nO equipamento não possui cópias disponíveis.");
                     }
                 }
-                    esperarEnter(teclado);
-                    break;
+                esperarEnter(teclado);
+                break;
+
                     
                     
                 case 10: // devolver equipamento
@@ -353,13 +385,13 @@ public class Application {
         int opcao = teclado.nextInt();
         teclado.nextLine();
         switch (opcao) {
-            case 1: // include reader
+            case 1: // include client
                 System.out.print('\u000C');
-                System.out.println("SELECTED OPTION – Add reader");
+                System.out.println("SELECTED OPTION – Add client");
                 
-                System.out.println("\nEnter the name of the new reader: ");
+                System.out.println("\nEnter the name of the new client: ");
                 String nome = teclado.nextLine();
-                System.out.println("Enter the company of the new reader: ");
+                System.out.println("Enter the company of the new client: ");
                 String empresa = teclado.nextLine();
                 int mat = matricula.nextInt(100);
                 do {
@@ -371,38 +403,38 @@ public class Application {
                     System.out.println(novoCliente.toStringENG());
                 } else {
                     System.out.println("ERROR" + 
-                    "\nIt was not possible to register the reader '" + nome + "'." +
+                    "\nIt was not possible to register the client '" + nome + "'." +
                     "\nPlease check the information entered and try again!");
                 }
                 waitForEnter(teclado);
                 break;
-            case 2: // remove reader
+            case 2: // remove client
                 System.out.print('\u000C');
-                System.out.println("SELECTED OPTION – Delete reader");
+                System.out.println("SELECTED OPTION – Delete client");
                 
-                System.out.println("\nEnter the name of the reader to be removed: ");
+                System.out.println("\nEnter the name of the client to be removed: ");
                 nome = teclado.nextLine();
                 if (clientes.retiraCliente(nome)) {
                     System.out.println("Client '" + nome + "' successfully removed!");
                 } else {
-                    System.out.println("ERROR!" + "\nNo reader with the name '" + nome + 
+                    System.out.println("ERROR!" + "\nNo client with the name '" + nome + 
                     "' found in the system." + "\nPlease check the information entered and try again!");
                 }
                 waitForEnter(teclado);
                 break;
-            case 3: // show readers
+            case 3: // show clients
                 System.out.print('\u000C'); 
-                System.out.println("SELECTED OPTION – Show readers");
+                System.out.println("SELECTED OPTION – Show clients");
                 
-                System.out.println("\n • Registered readers: • ");
+                System.out.println("\n • Registered clients: • ");
                 clientes.showClients();
                 waitForEnter(teclado);
                 break;
-            case 4: // search reader by name
+            case 4: // search client by name
                 System.out.print('\u000C');
-                System.out.println("SELECTED OPTION – Search reader by name");
+                System.out.println("SELECTED OPTION – Search client by name");
                 
-                System.out.println("\nEnter the name of the reader to search: ");
+                System.out.println("\nEnter the name of the client to search: ");
                 nome = teclado.nextLine();
                 if (clientes.buscaClientePeloNome(nome) != null) {
                     System.out.println("Client found:\n" + clientes.buscaClientePeloNome(nome).toStringENG());
@@ -411,16 +443,17 @@ public class Application {
                 }
                 waitForEnter(teclado);
                 break;
-            case 5: // include equipment
+            
+                case 5: // include equipment
                 System.out.print('\u000C');
                 System.out.println("SELECTED OPTION – Add equipment");
-            
-                System.out.println("\nEnter the type of the equipment to add:");
+                
+                System.out.println("\nEnter the type of the equipment you want to add:");
                 System.out.println("1 - Notebook");
                 System.out.println("2 - Printer");
                 System.out.println("3 - Desktop");
                 int tipoInput = teclado.nextInt();
-                teclado.nextLine(); // Clear the input buffer
+                teclado.nextLine(); 
             
                 // Validate the type input
                 if (tipoInput < 1 || tipoInput > 3) {
@@ -429,42 +462,31 @@ public class Application {
                     break;
                 }
             
-                System.out.println("\nEnter the name of the equipment to add: ");
+                System.out.println("\nEnter the name of the equipment:");
                 String nomeEquipamento = teclado.nextLine();
-                System.out.println("Enter the number of units for the equipment: ");
+                System.out.println("Enter the quantity of the equipment in stock:");
                 int quantidade = teclado.nextInt();
-                System.out.println("Create a code for the equipment: ");
+                System.out.println("Create a code for the equipment:");
                 int codigo = teclado.nextInt();
-                teclado.nextLine(); // Clear the input buffer
+                teclado.nextLine(); 
             
-                System.out.println("Enter the base value for a 1-week rental (in $): ");
+                System.out.println("Enter the base value for the equipment rental:");
                 double valorBase = teclado.nextDouble();
-                teclado.nextLine(); // Clear the input buffer
-            
-                System.out.println("Do you want to include insurance for this equipment? (1 - Yes, 0 - No): ");
-                int seguroInput = teclado.nextInt();
-                teclado.nextLine(); // Clear the input buffer
-            
-                // Validate the insurance input
-                if (seguroInput < 0 || seguroInput > 1) {
-                    System.out.println("ERROR: Invalid insurance option. Choose 1 (Yes) or 0 (No).");
-                    waitForEnter(teclado);
-                    break;
-                }
-                boolean seguro = (seguroInput == 1);
+                teclado.nextLine(); 
             
                 // Create the new equipment
-                Equipamento novoEquipamento = new Equipamento(codigo, nomeEquipamento, quantidade, tipoInput, valorBase, seguro);
+                Equipamento novoEquipamento = new Equipamento(codigo, nomeEquipamento, quantidade, tipoInput, valorBase);
                 if (equipamentos.adicionaEquipamento(novoEquipamento)) {
-                    System.out.println("Equipment successfully added!");
-                    System.out.println(novoEquipamento.toStringENG());
+                    System.out.println("\nEquipment successfully added!");
+                    System.out.println(novoEquipamento);
+                    
                 } else {
-                    System.out.println("ERROR" +
+                    System.out.println("\nERROR" + 
                     "\nIt was not possible to register the equipment '" + nomeEquipamento + "'." +
                     "\nPlease check the information entered and try again!");
                 }
                 waitForEnter(teclado);
-            break;
+                break;
 
 
             case 6: // remove equipment
@@ -504,34 +526,87 @@ public class Application {
                 }
                 waitForEnter(teclado);
                 break;
-            case 9: // borrow equipment
+            case 9: // rent equipment
                 System.out.print('\u000C');
-                System.out.println("SELECTED OPTION – Borrow equipment");
+                System.out.println("SELECTED OPTION – Rent equipment");
                 
-                System.out.println("\nEnter the name of the reader who wants to borrow a equipment: ");
+                System.out.println("\nEnter the name of the client who wants to rent equipment:");
                 nome = teclado.nextLine();
-                System.out.println("Enter the name of the equipment the reader wants to borrow: ");
-                nomeEquipamento = teclado.nextLine();
-                if (clientes.buscaClientePeloNome(nome).getEquipamentoRetirado() != null) {
-                    System.out.println("The reader already has already borrowed a equipment.\nIf they want to borrow another equipment, they must return the current one first.");
+                
+                System.out.println("Enter the code of the equipment the client wants to rent:");
+                System.out.println("\n • Stock • ");
+                equipamentos.mostraEquipamentos();
+                
+                codigo = teclado.nextInt();
+            
+                // Search for client and equipment
+                Cliente cliente = clientes.buscaClientePeloNome(nome);
+                Equipamento equipamento = equipamentos.buscaEquipamentoPeloCodigo(codigo);
+            
+                if (cliente == null) {
+                    System.out.println("ERROR: Client not found.");
+                } else if (equipamento == null) {
+                    System.out.println("ERROR: Equipment not found.");
+                } else if (cliente.getEquipamentoRetirado() != null) {
+                    System.out.println("The client already has equipment rented from the company." +
+                                       "\nIf they want to rent another piece of equipment, they must return the previous one.");
                 } else {
-                    clientes.buscaClientePeloNome(nome).setEquipamentoRetirado(equipamentos.buscaEquipamentoPeloNome(nomeEquipamento));
-                    if (equipamentos.buscaEquipamentoPeloNome(nomeEquipamento).retirada()) {
-                        System.out.println("The equipment was successfully borrowed!");
+                    System.out.println("Would you like to include insurance for this equipment? (1 - Yes, 0 - No):");
+                    int seguroInput = teclado.nextInt();
+                    if (seguroInput < 0 || seguroInput > 1) {
+                        System.out.println("ERROR: Invalid insurance option. Choose 1 (Yes) or 0 (No).");
+                        waitForEnter(teclado);
+                        break;
+                    }
+                    boolean seguro = (seguroInput == 1);
+                    teclado.nextLine();
+            
+                    System.out.println("For how many days do you want to rent this equipment?");
+                    int dias = teclado.nextInt();
+                    teclado.nextLine();
+            
+                    // Get the base value of the equipment
+                    valorBase = equipamento.getValorBase();
+            
+                    // Calculate the final value
+                    double valor = valorBase;
+                    if (dias == 7) {
+                        valor *= 1.0; // No discount
+                    } else if (dias > 7 || dias <= 15) {
+                        valor *= 0.95; // 5% discount
+                    } else if (dias > 15 || dias <= 30) {
+                        valor *= 0.90; // 10% discount
                     } else {
-                        System.out.println("The equipment doesn't have equipments available.");
+                        System.out.println("ERROR: Invalid duration. Choose 7, 15, or 30 days.");
+                        waitForEnter(teclado);
+                        break;
+                    }
+                    if (seguro) {
+                        valor *= 1.02; // Add 2% for insurance
+                    }
+            
+                    System.out.println("Final value: $" + String.format("%.2f", valor));
+            
+                    // Register rental
+                    cliente.setEquipamentoRetirado(equipamento);
+                    if (equipamento.retirada()) {
+                        System.out.println("The equipment was successfully rentn!");
+                    } else {
+                        System.out.println("Unable to rent the equipment!" +
+                                           "\nThe equipment is not available on stock.");
                     }
                 }
                 waitForEnter(teclado);
                 break;
+
             case 10: // return equipment
                 System.out.print('\u000C');
                 System.out.println("SELECTED OPTION – Return equipment");
                 
-                System.out.println("\nEnter the name of the reader who wants to return a equipment:");
+                System.out.println("\nEnter the name of the client who wants to return a equipment:");
                 nome = teclado.nextLine();
                 if (clientes.buscaClientePeloNome(nome).getEquipamentoRetirado() == null) {
-                    System.out.println("The reader does not have any equipments on loan.");
+                    System.out.println("The client does not have any equipments on loan.");
                 } else {
                     equipamentos.buscaEquipamentoPeloNome(clientes.buscaClientePeloNome(nome).getEquipamentoRetirado().getNomeEquipamento()).devolucao();
                     clientes.buscaClientePeloNome(nome).setEquipamentoRetirado(null);
@@ -594,17 +669,17 @@ public class Application {
         System.out.println("\n-----------------------------------------");
         System.out.println("Enter the number of the option you want to execute:");
         System.out.println("\n-• CLIENTS •-");
-        System.out.println("\n1 – Add reader");
-        System.out.println("2 – Delete reader");
-        System.out.println("3 – Show readers");
-        System.out.println("4 – Search reader by name");
+        System.out.println("\n1 – Add client");
+        System.out.println("2 – Delete client");
+        System.out.println("3 – Show clients");
+        System.out.println("4 – Search client by name");
         System.out.println("\n-----------------------------------------");
         System.out.println("-• EQUIPMENTS •-");
         System.out.println("\n5 – Add equipment");
         System.out.println("6 – Delete equipment");
         System.out.println("7 – Show equipments");
         System.out.println("8 – Search equipment by name");
-        System.out.println("9 – Borrow equipment");
+        System.out.println("9 – Rent equipment");
         System.out.println("10 – Return equipment");
         System.out.println("11 – Available equipments");
         System.out.println("-----------------------------------------");
