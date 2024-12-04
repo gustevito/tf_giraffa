@@ -6,14 +6,6 @@ public class Emprestimo {
         Scanner teclado = new Scanner(System.in);
         CadastroCliente clientes = new CadastroCliente();
         CadastroEquipamento equipamentos = new CadastroEquipamento();
-        // Equipamentos adicionados previamente:
-            equipamentos.adicionaEquipamento(new Equipamento(101, "Notebook Vaio", 5, 1, 200.0));
-            equipamentos.adicionaEquipamento(new Equipamento(102, "Notebook Dell", 4, 1, 180.0));
-            equipamentos.adicionaEquipamento(new Equipamento(201, "Impressora Epson", 3, 2, 100.0));
-            equipamentos.adicionaEquipamento(new Equipamento(202, "Impressora HP", 2, 2, 120.0));
-            equipamentos.adicionaEquipamento(new Equipamento(301, "Desktop Gamer | Ryzen 5", 6, 3, 250.0));
-            equipamentos.adicionaEquipamento(new Equipamento(302, "Desktop Gamer | Ryzen 7", 3, 3, 220.0));
-        
         
         System.out.println("Selecione o idioma de sua preferência:");
         System.out.println("(Select your preferred language:)");
@@ -90,6 +82,14 @@ public class Emprestimo {
     }
     
     public static void opcoes (Scanner teclado, CadastroEquipamento equipamentos, CadastroCliente clientes){
+        // equipamentos adicionados previamente para teste
+            equipamentos.adicionaEquipamento(new Equipamento(101, "Notebook Vaio", 5, 1, 200.0));
+            equipamentos.adicionaEquipamento(new Equipamento(102, "Notebook Dell", 4, 1, 180.0));
+            equipamentos.adicionaEquipamento(new Equipamento(201, "Impressora Epson", 3, 2, 100.0));
+            equipamentos.adicionaEquipamento(new Equipamento(202, "Impressora HP", 2, 2, 120.0));
+            equipamentos.adicionaEquipamento(new Equipamento(301, "Desktop Gamer | Ryzen 5", 6, 3, 250.0));
+            equipamentos.adicionaEquipamento(new Equipamento(302, "Desktop Gamer | Ryzen 7", 3, 3, 220.0));
+
         Random matricula = new Random();
         while(true){
             exibirMenu();
@@ -379,6 +379,14 @@ public class Emprestimo {
     
     // ingles
     public static void options (Scanner teclado, CadastroEquipamento equipamentos, CadastroCliente clientes) {
+        // previously added equipments
+            equipamentos.adicionaEquipamento(new Equipamento(101, "Vaio Notebook", 5, 1, 200.0));
+            equipamentos.adicionaEquipamento(new Equipamento(102, "Dell Notebook", 4, 1, 180.0));
+            equipamentos.adicionaEquipamento(new Equipamento(201, "EPSON Printer", 3, 2, 100.0));
+            equipamentos.adicionaEquipamento(new Equipamento(202, "HP Printer", 2, 2, 120.0));
+            equipamentos.adicionaEquipamento(new Equipamento(301, "Gamer Desktop | Ryzen 5", 6, 3, 250.0));
+            equipamentos.adicionaEquipamento(new Equipamento(302, "Gamer Desktop | Ryzen 7", 3, 3, 220.0));
+
     Random matricula = new Random();
     while (true){
         showMenu();
